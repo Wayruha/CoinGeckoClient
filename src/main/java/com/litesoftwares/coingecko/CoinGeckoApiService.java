@@ -42,7 +42,7 @@ public interface CoinGeckoApiService {
     Call<List<String>> getSupportedVsCurrencies();
 
     @GET("coins/list")
-    Call<List<CoinList>> getCoinList();
+    Call<List<CoinList>> getCoinList(@Query("include_platform") Boolean includePlatform);
 
     @GET("coins/markets")
     Call<List<CoinMarkets>> getCoinMarkets(@Query("vs_currency") String vsCurrency, @Query("ids") String ids,

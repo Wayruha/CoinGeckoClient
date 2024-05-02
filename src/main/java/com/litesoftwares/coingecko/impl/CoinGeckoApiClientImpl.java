@@ -1,5 +1,6 @@
 package com.litesoftwares.coingecko.impl;
 
+import com.litesoftwares.coingecko.ApiKey;
 import com.litesoftwares.coingecko.CoinGeckoApiService;
 import com.litesoftwares.coingecko.CoinGeckoApi;
 import com.litesoftwares.coingecko.domain.*;
@@ -28,16 +29,24 @@ public class CoinGeckoApiClientImpl implements CoinGeckoApiClient {
     private CoinGeckoApi coinGeckoApi;
 
     public CoinGeckoApiClientImpl() {
-        this(DEFAULT_CONNECTION_TIMEOUT, DEFAULT_READ_TIMEOUT, DEFAULT_WRITE_TIMEOUT);
+        this(null, DEFAULT_CONNECTION_TIMEOUT, DEFAULT_READ_TIMEOUT, DEFAULT_WRITE_TIMEOUT);
+    }
+
+    public CoinGeckoApiClientImpl(ApiKey apiKey) {
+        this(apiKey, DEFAULT_CONNECTION_TIMEOUT, DEFAULT_READ_TIMEOUT, DEFAULT_WRITE_TIMEOUT);
     }
 
     public CoinGeckoApiClientImpl(Long connectionTimeoutSeconds, Long readTimeoutSeconds, Long writeTimeoutSeconds){
-        this.coinGeckoApi = new CoinGeckoApi();
+        this(null, connectionTimeoutSeconds, readTimeoutSeconds, writeTimeoutSeconds);
+    }
+
+    public CoinGeckoApiClientImpl(ApiKey apiKey, Long connectionTimeoutSeconds, Long readTimeoutSeconds, Long writeTimeoutSeconds){
+        this.coinGeckoApi = new CoinGeckoApi(apiKey);
         this.coinGeckoApiService = coinGeckoApi.createService(
-                CoinGeckoApiService.class,
-                connectionTimeoutSeconds,
-                readTimeoutSeconds,
-                writeTimeoutSeconds
+            CoinGeckoApiService.class,
+            connectionTimeoutSeconds,
+            readTimeoutSeconds,
+            writeTimeoutSeconds
         );
     }
 
@@ -73,7 +82,7 @@ public class CoinGeckoApiClientImpl implements CoinGeckoApiClient {
 
     @Override
     public List<CoinList> getCoinList() {
-        return coinGeckoApi.executeSync(coinGeckoApiService.getCoinList());
+        return coinGeckoApi.executeSync(coinGeckoApiService.getCoinList(true));
     }
 
     @Override
