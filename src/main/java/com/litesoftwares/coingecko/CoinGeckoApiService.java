@@ -25,7 +25,7 @@ public interface CoinGeckoApiService {
     Call<Ping> ping();
 
     @GET("simple/price")
-    Call<Map<String,Map<String, Double>>> getPrice(@Query("ids") String ids,
+    Call<Map<String, CoinPriceData>> getPrice(@Query("ids") String ids,
                                       @Query("vs_currencies") String vsCurrencies,
                                       @Query("include_market_cap") boolean includeMarketCap,
                                       @Query("include_24hr_vol") boolean include24hrVol,

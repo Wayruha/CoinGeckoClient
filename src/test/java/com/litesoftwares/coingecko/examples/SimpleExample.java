@@ -2,8 +2,10 @@ package com.litesoftwares.coingecko.examples;
 
 import com.litesoftwares.coingecko.CoinGeckoApiClient;
 import com.litesoftwares.coingecko.constant.Currency;
+import com.litesoftwares.coingecko.domain.Coins.CoinPriceData;
 import com.litesoftwares.coingecko.impl.CoinGeckoApiClientImpl;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -12,11 +14,11 @@ public class SimpleExample {
 
         CoinGeckoApiClient client = new CoinGeckoApiClientImpl();
 
-        Map<String, Map<String, Double>> bitcoin = client.getPrice(Arrays.asList("bitcoin"), Currency.USD);
+        Map<String, CoinPriceData> bitcoin = client.getPrice(Arrays.asList("bitcoin"), Currency.USD);
 
         System.out.println(bitcoin);
 
-        double bitcoinPrice = bitcoin.get("bitcoin").get(Currency.USD);
+        BigDecimal bitcoinPrice = bitcoin.get("bitcoin").getUsdPrice();
 
         System.out.println(bitcoinPrice);
     }

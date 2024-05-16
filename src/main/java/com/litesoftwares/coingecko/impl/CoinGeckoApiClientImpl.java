@@ -3,6 +3,7 @@ package com.litesoftwares.coingecko.impl;
 import com.litesoftwares.coingecko.ApiKey;
 import com.litesoftwares.coingecko.CoinGeckoApiService;
 import com.litesoftwares.coingecko.CoinGeckoApi;
+import com.litesoftwares.coingecko.constant.Currency;
 import com.litesoftwares.coingecko.domain.*;
 import com.litesoftwares.coingecko.domain.Coins.*;
 import com.litesoftwares.coingecko.domain.Events.EventCountries;
@@ -56,17 +57,17 @@ public class CoinGeckoApiClientImpl implements CoinGeckoApiClient {
     }
 
     @Override
-    public Map<String, Map<String, Double>> getUsdPrice(List<String> ids){
-        return getPrice(ids, "usd", false, false, false,  false);
+    public Map<String, CoinPriceData> getCoinPriceData(List<String> ids){
+        return getPrice(ids, Currency.USD, true, true, true,  true);
     }
 
     @Override
-    public Map<String, Map<String, Double>> getPrice(List<String> ids, String vsCurrencies){
+    public Map<String, CoinPriceData> getPrice(List<String> ids, String vsCurrencies){
         return getPrice(ids, vsCurrencies, false, false, false,  false);
     }
 
     @Override
-    public Map<String, Map<String, Double>> getPrice(List<String> ids, String vsCurrencies, boolean includeMarketCap, boolean include24hrVol, boolean include24hrChange, boolean includeLastUpdatedAt) {
+    public Map<String, CoinPriceData> getPrice(List<String> ids, String vsCurrencies, boolean includeMarketCap, boolean include24hrVol, boolean include24hrChange, boolean includeLastUpdatedAt) {
         return coinGeckoApi.executeSync(coinGeckoApiService.getPrice(String.join(",", ids), vsCurrencies,includeMarketCap, include24hrVol, include24hrChange, includeLastUpdatedAt));
     }
 

@@ -18,11 +18,11 @@ import java.util.Map;
 
 public interface CoinGeckoApiClient {
     Ping ping();
-    Map<String, Map<String, Double>> getUsdPrice(List<String> ids);
+    Map<String, CoinPriceData> getCoinPriceData(List<String> ids);
 
-    Map<String, Map<String, Double>> getPrice(List<String> ids, String vsCurrencies);
+    Map<String, CoinPriceData> getPrice(List<String> ids, String vsCurrencies);
 
-    Map<String, Map<String, Double>> getPrice(List<String> ids, String vsCurrencies, boolean includeMarketCap, boolean include24hrVol,
+    Map<String, CoinPriceData> getPrice(List<String> ids, String vsCurrencies, boolean includeMarketCap, boolean include24hrVol,
                                               boolean include24hrChange, boolean includeLastUpdatedAt);
 
     Map<String, Map<String, Double>> getTokenPrice(String id, String contractAddress, String vsCurrencies);
